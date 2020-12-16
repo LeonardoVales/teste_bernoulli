@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', 'ClassificacaoController@index');
+
 
 // Route::get('/teste', function () {
 //     dd(date("Y-m-d h:i:sa", $d));
