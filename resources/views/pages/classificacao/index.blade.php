@@ -6,9 +6,6 @@
 
 @section('content')
     
-    @php
-        dd($times);
-    @endphp
     <div class="container" style="margin-top: 50px;">
 
         <div class="row">
@@ -31,52 +28,130 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        
-                        <form class="form-inline">
-                            
-                                <div class="form-group">                                    
-                                        <div class="col-4">
-                                            <label for="time_casa">Time da casa</label>
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            </select>
-                                        </div>
+
+                        <h6 style="text-align: center;">Time da casa</h6>
+
+                        <form action="" class="form-inline">
+                            <div class="form-group">
+                                <div class="row justify-content-center">
+                                    
+                                    <div class="col-6">
+                                        <label for="time_casa_id">Time</label>
+                                        <select class="form-control" id="time_casa_id">
+                                                <option value=""></option>
+                                            @foreach ($times as $time)
+                                                <option value="{{$time->id}}">{{$time->nome_time}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="qtd_gols_time_casa">Gols</label>
+                                        <input  class="form-control" 
+                                                type="text" 
+                                                name="qtd_gols_time_casa" 
+                                                id="qtd_gols_time_casa" 
+                                                value="0">
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="qdt_gols_contra_time_casa">Gols contra</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="qdt_gols_contra_time_casa" 
+                                               id="qdt_gols_contra_time_casa" 
+                                               value="0">
+                                    </div>
+                                    
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="col-2">
-                                        <input class="form-control" type="text" name="gols" id="gols" value="0">
-                                    </div>                                               
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <label for="cartoes_amarelo_time_casa">Cartões Amarelo</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="cartoes_amarelo_time_casa" 
+                                               id="cartoes_amarelo_time_casa" 
+                                               value="0">
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label for="cartoes_vermelho_time_casa">Cartões Vermelho</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="cartoes_vermelho_time_casa" 
+                                               id="cartoes_vermelho_time_casa" 
+                                               value="0">
+                                    </div>
                                 </div>
-                     
-                            <div class="form-group">
-                                <div class="col-4">
-                                    <label for="time_casa">Time da casa</label>
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select>
+
+                                <div class="row justify-content-center" style="margin-top: 15px;">
+                                    <div class="col-12">
+                                        <h5 style="text-align: center;">X</h5>
+                                    </div>                                    
                                 </div>
-                            </div>   
-                            
-                            <div class="form-group">
-                                    <div class="col-2">
-                                        <input class="form-control" type="text" name="gols" id="gols" value="0">
-                                    </div>                                               
+
+                                <h6 style="text-align: center;">Time visitante</h6>
+
+                                <div class="row justify-content-center">                                    
+                                    <div class="col-6">
+                                        <label for="time_visitante_id">Time</label>
+                                        <select class="form-control" id="time_visitante_id">
+                                                <option value=""></option>
+                                            @foreach ($times as $time)
+                                                <option value="{{$time->id}}">{{$time->nome_time}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="qtd_gols_time_visitante">Gols</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="qtd_gols_time_visitante" 
+                                               id="qtd_gols_time_visitante" 
+                                               value="0">
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="qdt_gols_contra_time_visitante">Gols contra</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="qdt_gols_contra_time_visitante" 
+                                               id="qdt_gols_contra_time_visitante" 
+                                               value="0">
+                                    </div>                                    
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <label for="cartoes_amarelo_time_visitante">Cartões Amarelo</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="cartoes_amarelo_time_visitante" 
+                                               id="cartoes_amarelo_time_visitante" 
+                                               value="0">
+                                    </div>
+
+                                    <div class="col-6">
+                                        <label for="cartoes_vermelho_time_visitante">Cartões Vermelho</label>
+                                        <input class="form-control" 
+                                               type="text" 
+                                               name="cartoes_vermelho_time_visitante" 
+                                               id="cartoes_vermelho_time_visitante" 
+                                               value="0">
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </form>
-
+                    
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
+                        <button type="button" onclick="insertConfronto()" class="btn btn-primary">Salvar</button>
                     </div>
                     </div>
                 </div>            
@@ -119,10 +194,102 @@
 @endsection
 
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
 
     window.onload = function() {
+
+        window.insertConfronto = function () {
+            
+            const time_casa_id               = document.getElementById('time_casa_id').value;
+            const qtd_gols_time_casa         = document.getElementById('qtd_gols_time_casa').value;
+            const qdt_gols_contra_time_casa  = document.getElementById('qdt_gols_contra_time_casa').value;
+            const cartoes_amarelo_time_casa  = document.getElementById('cartoes_amarelo_time_casa').value;
+            const cartoes_vermelho_time_casa = document.getElementById('cartoes_vermelho_time_casa').value;
+
+            const time_visitante_id               = document.getElementById('time_visitante_id').value;
+            const qtd_gols_time_visitante         = document.getElementById('qtd_gols_time_visitante').value;
+            const qdt_gols_contra_time_visitante  = document.getElementById('qdt_gols_contra_time_visitante').value;
+            const cartoes_amarelo_time_visitante  = document.getElementById('cartoes_amarelo_time_visitante').value;
+            const cartoes_vermelho_time_visitante = document.getElementById('cartoes_vermelho_time_visitante').value;
+
+            if (time_casa_id === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção',
+                    text: 'Selecione o time da casa',                    
+                });
+
+                return;
+            }
+
+            if (time_visitante_id === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção',
+                    text: 'Selecione o time visitante',                    
+                });
+
+                return;
+            }
+
+            if (time_casa_id === time_visitante_id) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção',
+                    text: 'Selecione times diferentes para o confronto',                    
+                });
+
+                return;
+            }
+
+            // let dados = new Object();
+            // dados.time_casa_id               = time_casa_id;
+            // dados.qtd_gols_time_casa         = qtd_gols_time_casa;
+            // dados.qdt_gols_contra_time_casa  = qdt_gols_contra_time_casa;
+            // dados.cartoes_amarelo_time_casa  = cartoes_amarelo_time_casa;
+            // dados.cartoes_vermelho_time_casa = cartoes_vermelho_time_casa;
+
+            // dados.time_visitante_id               = time_visitante_id;
+            // dados.qtd_gols_time_visitante         = qtd_gols_time_visitante;
+            // dados.qdt_gols_contra_time_visitante  = qdt_gols_contra_time_visitante;
+            // dados.cartoes_amarelo_time_visitante  = cartoes_amarelo_time_visitante;
+            // dados.cartoes_vermelho_time_visitante = cartoes_vermelho_time_visitante;
+
+            const dados = new URLSearchParams({
+                time_casa_id               : time_casa_id,
+                qtd_gols_time_casa         : qtd_gols_time_casa,
+                qdt_gols_contra_time_casa  : qdt_gols_contra_time_casa,
+                cartoes_amarelo_time_casa  : cartoes_amarelo_time_casa,
+                cartoes_vermelho_time_casa : cartoes_vermelho_time_casa,
+
+                time_visitante_id               : time_visitante_id,
+                qtd_gols_time_visitante         : qtd_gols_time_visitante,
+                qdt_gols_contra_time_visitante  : qdt_gols_contra_time_visitante,
+                cartoes_amarelo_time_visitante  : cartoes_amarelo_time_visitante,
+                cartoes_vermelho_time_visitante : cartoes_vermelho_time_visitante,
+            });
+
+            
+            let req = new XMLHttpRequest();
+
+            req.open("POST", "http://localhost:8000/api/v1/save-confronto", true);
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            req.send(dados.toString());
+
+            req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
+                    const response = req.responseText;
+
+                    console.log(response);
+                }
+            }
+
+         
+
+            
+        }
     
         const handleTableClassificacao = function () {
             let req = new XMLHttpRequest();

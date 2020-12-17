@@ -22,5 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/lista-classificacao', 'Api\ClassificacaoController@index');
+    Route::post('/save-confronto', 'Api\ConfrontoController@save');
 
 });
