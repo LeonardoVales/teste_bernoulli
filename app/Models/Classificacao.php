@@ -89,6 +89,7 @@ class Classificacao extends Model
         
         // $listaClassificacao = Classificacao::get();
         $listaClassificacao = Classificacao::orderBy('quantidade_vitorias', 'desc')
+                                            ->orderBy('pontos', 'desc')
                                             ->orderBy('saldo_gols', 'desc')
                                             ->orderBy('gols_pro', 'desc')
                                             ->orderBy('qtd_cartoes_vermelho', 'asc')

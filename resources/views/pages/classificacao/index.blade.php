@@ -307,12 +307,12 @@
             const inputs = document.getElementById('inputs_form').querySelectorAll('input');
 
             inputs.forEach(function (input) {
-                if (input.value === '') {
-                    return false;
+                if (input.value === '') {                    
+                    return true;
                 }
             });
 
-            return true;
+            return false;
 
 
         }
