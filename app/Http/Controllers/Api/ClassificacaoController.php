@@ -18,9 +18,27 @@ class ClassificacaoController extends Controller
     }
 
     public function index()
-    {
-        $listaClassificacao = $this->classificacao->get();
+    {    
+        $listaClassificacao = Classificacao::get();
+        
+        $classificacao = [];
 
+        foreach ($listaClassificacao as $list) {
+
+            $classificacao[] = [
+                'id'                  => $list->id,
+                'time_id'             => $list->time_id,
+                'time'                => $list->time,
+                'pontos'              => $list->pontos,
+                'quantidade_jogos'    => $list->quantidade_jogos,
+                'quantidade_vitorias' => $list->quantidade_vitorias,
+                'quantidade_empates'  => $list->quantidade_empates,
+                'gols_pro'            => $list->gols_pro,
+                'gols_contra'         => $list->gols_contra,
+                'saldo_gols'          => $list->saldo_gols,
+            ];            
+        }
+        
         return response()->json($listaClassificacao);
     }
 }
