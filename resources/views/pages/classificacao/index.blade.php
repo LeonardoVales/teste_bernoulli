@@ -31,12 +31,12 @@
 
                         <h6 style="text-align: center;">Time da casa</h6>
 
-                        <form action="" class="form-inline">
+                        <form action="" class="form-inline" id="inputs_form">
                             <div class="form-group">
                                 <div class="row justify-content-center">
                                     
                                     <div class="col-6">
-                                        <label for="time_casa_id">Time</label>
+                                        <label for="time_casa_id">Time (*)</label>
                                         <select class="form-control" id="time_casa_id">
                                                 <option value=""></option>
                                             @foreach ($times as $time)
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <label for="qtd_gols_time_casa">Gols</label>
+                                        <label for="qtd_gols_time_casa">Gols (*)</label>
                                         <input  class="form-control" 
                                                 type="text" 
                                                 name="qtd_gols_time_casa" 
@@ -67,9 +67,9 @@
                                     
                                 </div>
 
-                                <div class="row justify-content-center">
+                                <div class="row justify-content-center" style="margin-top: 10;">
                                     <div class="col-6">
-                                        <label for="cartoes_amarelo_time_casa">Cartões Amarelo</label>
+                                        <label for="cartoes_amarelo_time_casa">Cartões Amarelo (*)</label>
                                         <input class="form-control" 
                                                type="text" 
                                                name="cartoes_amarelo_time_casa" 
@@ -79,7 +79,7 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="cartoes_vermelho_time_casa">Cartões Vermelho</label>
+                                        <label for="cartoes_vermelho_time_casa">Cartões Vermelho (*)</label>
                                         <input class="form-control" 
                                                type="text" 
                                                name="cartoes_vermelho_time_casa" 
@@ -99,7 +99,7 @@
 
                                 <div class="row justify-content-center">                                    
                                     <div class="col-6">
-                                        <label for="time_visitante_id">Time</label>
+                                        <label for="time_visitante_id">Time (*)</label>
                                         <select class="form-control" id="time_visitante_id">
                                                 <option value=""></option>
                                             @foreach ($times as $time)
@@ -109,7 +109,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <label for="qtd_gols_time_visitante">Gols</label>
+                                        <label for="qtd_gols_time_visitante">Gols (*)</label>
                                         <input class="form-control" 
                                                type="text" 
                                                name="qtd_gols_time_visitante" 
@@ -129,9 +129,9 @@
                                     </div>                                    
                                 </div>
 
-                                <div class="row justify-content-center">
+                                <div class="row justify-content-center" style="margin-top: 10;">
                                     <div class="col-6">
-                                        <label for="cartoes_amarelo_time_visitante">Cartões Amarelo</label>
+                                        <label for="cartoes_amarelo_time_visitante">Cartões Amarelo (*)</label>
                                         <input class="form-control" 
                                                type="text" 
                                                name="cartoes_amarelo_time_visitante" 
@@ -141,7 +141,7 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <label for="cartoes_vermelho_time_visitante">Cartões Vermelho</label>
+                                        <label for="cartoes_vermelho_time_visitante">Cartões Vermelho (*)</label>
                                         <input class="form-control" 
                                                type="text" 
                                                name="cartoes_vermelho_time_visitante" 
@@ -204,6 +204,16 @@
          * Função que insere um novo confronto
          */
         window.insertConfronto = function () {
+
+            if (validaCampos()) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atenção',
+                    text: 'Preencha todos os campos',                    
+                });
+
+                return;
+            }
             
             const time_casa_id               = document.getElementById('time_casa_id').value;
             const qtd_gols_time_casa         = document.getElementById('qtd_gols_time_casa').value;
@@ -288,6 +298,23 @@
                     document.getElementById('cartoes_vermelho_time_visitante').value = 0;
                 }
             }            
+        }
+
+        /**
+        * Função que valida os inputs
+        */
+        const validaCampos = function() {
+            const inputs = document.getElementById('inputs_form').querySelectorAll('input');
+
+            inputs.forEach(function (input) {
+                if (input.value === '') {
+                    return false;
+                }
+            });
+
+            return true;
+
+
         }
 
         /**
