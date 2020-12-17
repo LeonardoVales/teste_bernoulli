@@ -51,6 +51,7 @@
                                                 type="text" 
                                                 name="qtd_gols_time_casa" 
                                                 id="qtd_gols_time_casa" 
+                                                onkeypress="return apenasNumeros(event)"
                                                 value="0">
                                     </div>
 
@@ -60,6 +61,7 @@
                                                type="text" 
                                                name="qdt_gols_contra_time_casa" 
                                                id="qdt_gols_contra_time_casa" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>
                                     
@@ -72,6 +74,7 @@
                                                type="text" 
                                                name="cartoes_amarelo_time_casa" 
                                                id="cartoes_amarelo_time_casa" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>
 
@@ -81,6 +84,7 @@
                                                type="text" 
                                                name="cartoes_vermelho_time_casa" 
                                                id="cartoes_vermelho_time_casa" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>
                                 </div>
@@ -110,6 +114,7 @@
                                                type="text" 
                                                name="qtd_gols_time_visitante" 
                                                id="qtd_gols_time_visitante" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>
 
@@ -119,6 +124,7 @@
                                                type="text" 
                                                name="qdt_gols_contra_time_visitante" 
                                                id="qdt_gols_contra_time_visitante" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>                                    
                                 </div>
@@ -130,6 +136,7 @@
                                                type="text" 
                                                name="cartoes_amarelo_time_visitante" 
                                                id="cartoes_amarelo_time_visitante" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>
 
@@ -139,18 +146,16 @@
                                                type="text" 
                                                name="cartoes_vermelho_time_visitante" 
                                                id="cartoes_vermelho_time_visitante" 
+                                               onkeypress="return apenasNumeros(event)"
                                                value="0">
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </form>
                     
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Fechar</button>
                         <button type="button" onclick="insertConfronto()" class="btn btn-primary">Salvar</button>
                     </div>
                     </div>
@@ -179,14 +184,8 @@
                     </table>
                 </div>
             </div>
-
             
         </div>
-
-
-
-
-
         
     </div>
 
@@ -199,6 +198,11 @@
 
     window.onload = function() {
 
+        var baseUrl = 'http://localhost:8000';
+
+        /**
+         * Função que insere um novo confronto
+         */
         window.insertConfronto = function () {
             
             const time_casa_id               = document.getElementById('time_casa_id').value;
@@ -243,19 +247,6 @@
                 return;
             }
 
-            // let dados = new Object();
-            // dados.time_casa_id               = time_casa_id;
-            // dados.qtd_gols_time_casa         = qtd_gols_time_casa;
-            // dados.qdt_gols_contra_time_casa  = qdt_gols_contra_time_casa;
-            // dados.cartoes_amarelo_time_casa  = cartoes_amarelo_time_casa;
-            // dados.cartoes_vermelho_time_casa = cartoes_vermelho_time_casa;
-
-            // dados.time_visitante_id               = time_visitante_id;
-            // dados.qtd_gols_time_visitante         = qtd_gols_time_visitante;
-            // dados.qdt_gols_contra_time_visitante  = qdt_gols_contra_time_visitante;
-            // dados.cartoes_amarelo_time_visitante  = cartoes_amarelo_time_visitante;
-            // dados.cartoes_vermelho_time_visitante = cartoes_vermelho_time_visitante;
-
             const dados = new URLSearchParams({
                 time_casa_id               : time_casa_id,
                 qtd_gols_time_casa         : qtd_gols_time_casa,
@@ -269,37 +260,78 @@
                 cartoes_amarelo_time_visitante  : cartoes_amarelo_time_visitante,
                 cartoes_vermelho_time_visitante : cartoes_vermelho_time_visitante,
             });
-
             
             let req = new XMLHttpRequest();
-
-            req.open("POST", "http://localhost:8000/api/v1/save-confronto", true);
+            
+            req.open("POST", `${baseUrl}/api/v1/save-confronto`, true);
             req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
+            // Faz a requisição
             req.send(dados.toString());
 
             req.onreadystatechange = function() {
                 if (req.readyState == 4 && req.status == 200) {
-                    const response = req.responseText;
 
-                    console.log(response);
+                    document.getElementById('close_modal').click(); //Fecha o Modal
+                    destroyContentTbody(); //Destroi o conteúdo da tabela
+                    handleTableClassificacao(); //Regria a tabela atualizada
+
+                    document.getElementById('time_casa_id').value = '';
+                    document.getElementById('qtd_gols_time_casa').value = 0;
+                    document.getElementById('qdt_gols_contra_time_casa').value = 0;
+                    document.getElementById('cartoes_amarelo_time_casa').value = 0;
+                    document.getElementById('cartoes_vermelho_time_casa').value = 0;
+
+                    document.getElementById('time_visitante_id').value = '';
+                    document.getElementById('qtd_gols_time_visitante').value = 0;
+                    document.getElementById('qdt_gols_contra_time_visitante').value = 0;
+                    document.getElementById('cartoes_amarelo_time_visitante').value = 0;
+                    document.getElementById('cartoes_vermelho_time_visitante').value = 0;
+                }
+            }            
+        }
+
+        /**
+         * Função que permite o input receber apenas números na digitação
+         */
+        window.apenasNumeros = function (e) {
+            const charCode = e.charCode ? e.charCode : e.keyCode;
+
+            if (charCode != 8 && charCode != 9) {
+                        
+                if (charCode < 48 || charCode > 57) {
+                    return false;
                 }
             }
+        }
 
-         
+        /**
+         * Função que destroi o conteúdo tbody da tabela
+         */
+        const destroyContentTbody = function() {
+            const tbody = document.getElementById('tableTbody');
 
+            let childs = tbody.lastElementChild; //pega o último elemento criado
+
+            while (childs) {
+                tbody.removeChild(childs); //remove o elemento
+                childs = tbody.lastElementChild; // pega novamente o último elemento
+            }
             
         }
     
+        /**
+         * Função que cria a tabela de classificação
+         */
         const handleTableClassificacao = function () {
             let req = new XMLHttpRequest();
 
-            req.open("GET", "http://localhost:8000/api/v1/lista-classificacao", true);
-
+            // req.open("GET", "http://localhost:8000/api/v1/lista-classificacao", true);
+            req.open("GET", `${baseUrl}/api/v1/lista-classificacao`, true);
+            //faz a requisição
             req.send();
 
             req.onreadystatechange = function() {
-
+                
                 if (req.readyState == 4 && req.status == 200) {
                     const response = JSON.parse(req.responseText);
                     if (Object.entries(response).lenght != 0) {
@@ -307,8 +339,7 @@
                         /**
                         * Percorre o objeto da tabela classificação chamando a função createRow para cada item
                         */
-                        Object.entries(response).forEach(([key, value]) => {
-                            
+                        Object.entries(response).forEach(([key, value]) => {                            
                             createRow(
                                 value.time.nome_time, 
                                 value.pontos, 
@@ -377,6 +408,7 @@
 
         }   
 
+        //Cria o tbody da tabela de classificação
         handleTableClassificacao();      
 
     }

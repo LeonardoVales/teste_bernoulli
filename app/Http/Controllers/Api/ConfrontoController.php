@@ -17,6 +17,9 @@ class ConfrontoController extends Controller
         $this->classificacao = new Classificacao;
     }
 
+    /**
+     * Salva o confronto no banco de dados
+     */
     public function save(Request $request)
     {
         $confronto = new Confronto;
@@ -40,10 +43,13 @@ class ConfrontoController extends Controller
 
             $confronto->save();
 
-            $classificacao_atualizada = $this->classificacao->atualizaClassificacao($confronto);
+            //Atualiza a classificação
+            $this->classificacao->atualizaClassificacao($confronto);
+            
+            return response()->json([], 200);
 
         } catch(\Exception $e) {
-            dd($e->getMessage());
+            return response()->json($e->getMessage(), 500);
         }
     }
 }

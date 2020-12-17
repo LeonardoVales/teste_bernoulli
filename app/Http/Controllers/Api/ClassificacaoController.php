@@ -17,27 +17,13 @@ class ClassificacaoController extends Controller
         $this->classificacao = new Classificacao;
     }
 
+    /**
+     * Lista a tabela de classificação
+     *
+     */
     public function index()
     {    
-        $listaClassificacao = Classificacao::get();
-        
-        $classificacao = [];
-
-        foreach ($listaClassificacao as $list) {
-
-            $classificacao[] = [
-                'id'                  => $list->id,
-                'time_id'             => $list->time_id,
-                'time'                => $list->time,
-                'pontos'              => $list->pontos,
-                'quantidade_jogos'    => $list->quantidade_jogos,
-                'quantidade_vitorias' => $list->quantidade_vitorias,
-                'quantidade_empates'  => $list->quantidade_empates,
-                'gols_pro'            => $list->gols_pro,
-                'gols_contra'         => $list->gols_contra,
-                'saldo_gols'          => $list->saldo_gols,
-            ];            
-        }
+        $listaClassificacao = $this->classificacao->getListaClassificacao();
         
         return response()->json($listaClassificacao);
     }
